@@ -1,0 +1,11 @@
+/node_modules
+/dist
+.parcel-cache
+/coverage
+*.log
+*.class
+target/
+dist/
+.idea/
+TEST*.xml
+*.py[cod]
