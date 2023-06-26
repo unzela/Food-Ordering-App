@@ -31,9 +31,9 @@ const Body = () => {
 
     return (allRestaurants.length ===0)? <Shimmer />: ( //Conditional Rendering
         <div className="body">
-            <div className="flex">
-                <div className="p-5 my-5 bg-orange-50">
-                    <input data-testid="search-input" type="text" className="focus:bg-gray-200 p-2 m-2" placeholder="Search" 
+            <div className="flex justify-center">
+                <div className="p-5 my-5 bg-orange-50 w-full flex justify-center">
+                    <input data-testid="search-input" type="text" className="focus:bg-gray-200 p-2 m-2 border border-black rounded-lg" placeholder="Search" 
                         value={searchText} onChange={
                             (e) => {setSearchText(e.target.value)}} 
                     >
@@ -45,7 +45,7 @@ const Body = () => {
                 </div>
 
                 <div className="filter p-10">
-                    <button className="filter-btn" 
+                    <button className="bg-orange-50 rounded-lg p-2" 
                         onClick={() => {
                             const filteredList = allRestaurants.filter((res) => res.data.avgRating > 4);
                             setAllRestaurants(filteredList);

@@ -14,9 +14,8 @@ const Profile = () => {
         setUserInfo(json);  
     }
     return (
-        <div>
-            <h2>Profile component</h2>
-            <img src ={userInfo.avatar_url} />
+        <div className="p-5">
+            <img className="float-right mx-56 w-80 rounded-lg" src ={userInfo.avatar_url} />
             <h3>{userInfo.name}</h3>
             <h3>{userInfo.location}</h3>
             <h3>{userInfo.bio}</h3>

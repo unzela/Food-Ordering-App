@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 const About = () => {
     return(
         <div>
-            <h1>About Us</h1>
-            <p>Hello, I'm Unzela Inamdar</p>
+            <p className="m-3">I'm Unzela Inamdar</p>
             {/* <Outlet /> //Profile will also work */}
             <Profile />
         </div>
