@@ -14,11 +14,13 @@ const Profile = () => {
         setUserInfo(json);  
     }
     return (
-        <div className="p-5">
-            <img className="float-right mx-56 w-80 rounded-lg" src ={userInfo.avatar_url} />
-            <h3>{userInfo.name}</h3>
-            <h3>{userInfo.location}</h3>
-            <h3>{userInfo.bio}</h3>
+        <div className="flex px-56 py-16 font-medium">
+            <img className="w-80 rounded-lg" src ={userInfo.avatar_url} />
+            <div className="px-32 py-20 text-center">
+                <h3>{userInfo.name}</h3>
+                <h3>{userInfo.location}</h3>
+                <h3>{userInfo.bio}</h3>
+            </div>
         </div>
     )
 }

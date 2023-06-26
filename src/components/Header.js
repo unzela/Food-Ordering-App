@@ -17,7 +17,7 @@ const Header = () => {
     <div className="flex justify-between bg-orange-100 shadow-lg sm:bg-orange-300 md:bg-orange-200"> 
         
         <div className="">
-            <img data-testid="logo" className="h-28 p-2" src={LOGO_URL}></img>
+            <img data-testid="logo" className="h-28 px-4 py-2" src={LOGO_URL}></img>
         </div>
         
         <div className="">
@@ -40,7 +40,7 @@ const Header = () => {
             </ul>
         </div>
 
-        <div className="flex m-10 space-x-2 ">
+        <div className="flex m-10 space-x-3">
             <h1 className="py-1" data-testid="online-status">{isOnline ? "✅" : "🔴"}</h1>
             <h1 className="py-1 font-bold text-orange-700">{user.name}</h1>
             { isLoggedIn ?  (

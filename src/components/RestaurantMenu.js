@@ -26,10 +26,10 @@ const RestaurantMenu = () => {
     }
 
     return (
-        <div className="flex ">
+        <div className="flex">
             <div className="p-14">
+                <h2 className="font-bold text-md">{name}</h2>
                 <h1>Restaurant ID: {resId}</h1>
-                <h2>{name}</h2>
                 <h2>{cuisines.join(", ")} - {costForTwoMessage}</h2>
                 <img className="w-56" src={IMG_CDN_URL + cloudinaryImageId} />
                 <h3>{areaName}</h3>
