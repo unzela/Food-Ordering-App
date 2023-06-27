@@ -45,7 +45,7 @@ const Body = () => {
                 </div>
 
                 <div className="filter p-10">
-                    <button className="bg-orange-50 rounded-lg p-2" 
+                    <button className="bg-orange-50 rounded-lg p-2 border border-gray-300" 
                         onClick={() => {
                             const filteredList = filteredRestaurants.filter((res) => res.data.avgRating > 4);
                             setFilteredRestaurants(filteredList);
