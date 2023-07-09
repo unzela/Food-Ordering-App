@@ -13,17 +13,17 @@ const RestaurantMenu = () => {
 
     const restaurant = useRestaurant(resId);
 
-    if (restaurant === null) return <Shimmer />;
-
-    const { name, cuisines, costForTwoMessage, cloudinaryImageId, areaName, avgRating, city } = restaurant?.cards[0]?.card?.card?.info;
-    const itemCards = restaurant?.cards[3]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card?.card?.itemCards;
-    console.log(itemCards);
-
     const dispatch = useDispatch();
 
     const addFoodItem = (item) => {
-        dispatch(addItem(item));   //{payload: "Grapes"}
+        dispatch(addItem(item));   //dispatch(ation name(payload))
     }
+
+    if (restaurant == null) return <Shimmer />;
+
+    const { name, cuisines, costForTwoMessage, cloudinaryImageId, areaName, avgRating, city } = restaurant?.cards[0]?.card?.card?.info;
+    const itemCards = restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card?.card?.itemCards;
+    console.log(itemCards);
 
     return (
         <div className="flex flex-col m-10 text-center">
@@ -41,14 +41,21 @@ const RestaurantMenu = () => {
             </div>
 
             <div className="">
-                <h1 className="text-xl font-bold py-10">Menu</h1>
-                <ul data-testid="menu">
+                <h1 className="text-xl font-bold py-10">Menu Items</h1>
+                <ul className="flex flex-wrap" data-testid="menu">
                     {itemCards?.map((item) => (
-                    <li key={item.card.info.id}>
-                        {item.card.info.name} -{" Rs."}
-                        {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+                    <li key={item.card.info.id} className="m-10 text-center shadow-md w-80 ml-auto mr-auto">
 
-                        <button data-testid="addBtn" onClick={() => addFoodItem(item)} className="p-2 bg-orange-100 rounded-lg">Add</button>
+                        <img src={`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${item.card.info.imageId}`}
+                        className="h-40 m-auto" />
+
+                        <p className="font-semibold">{item.card.info.name} -{" Rs."}
+                        {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+                        </p>
+
+                        <p>{item.card.info.description}</p> 
+                        
+                        <button data-testid="addBtn" onClick={() => addFoodItem(item.card.info)} className="p-1 m-2 bg-orange-100 rounded-lg">Add</button>
                     </li>
                     ))}
                 </ul>
