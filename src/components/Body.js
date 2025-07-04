@@ -1,9 +1,9 @@
 import RestaurantCard from "./RestaurantCard";
-import restroList from "../utils/mockData";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper"; 
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -16,15 +16,23 @@ const Body = () => {
 
     async function getRestaurants (){
         try{
-            const data = await fetch("https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5204303&lng=73.8567437&page_type=DESKTOP_WEB_LISTING");
+            const data = await fetch("https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api");
             const json = await data.json();
-            setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards); //Optional Chaining
-            setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+            console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setAllRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants); //Optional Chaining
+            setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         }
         catch(error){
             console.log(error)
         }
     }
+
+      const onlineStatus = useOnlineStatus();
+
+    if (onlineStatus === false)
+        return (
+            <h1>Looks like you're offline!! Please check your internet connection;</h1>
+        );
 
     // if(!allRestaurants) return null; //Early return
     // if(filteredRestaurants?.length === 0 ) return <h1>No restaurant match your filter</h1>
@@ -47,7 +55,7 @@ const Body = () => {
                 <div className="filter p-10">
                     <button className="bg-orange-50 rounded-lg p-2 border border-gray-300" 
                         onClick={() => {
-                            const filteredList = filteredRestaurants.filter((res) => res.data.avgRating > 4);
+                            const filteredList = filteredRestaurants.filter((res) => res.info.avgRating > 4.2);
                             setFilteredRestaurants(filteredList);
                         }}
                     >
@@ -60,8 +68,8 @@ const Body = () => {
                 {
                     filteredRestaurants.map((restaurant) => {
                         return (
-                            <Link to = {"/restaurant/"+restaurant.data.id} key={restaurant.data.id}>
-                                <RestaurantCard key={restaurant.data.id} restroData={restaurant}/>
+                            <Link to = {"/restaurant/"+restaurant.info.id} key={restaurant.info.id}>
+                                <RestaurantCard key={restaurant.info.id} restroData={restaurant}/>
                             </Link>
                         )}
                 )}

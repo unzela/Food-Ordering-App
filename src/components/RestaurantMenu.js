@@ -1,9 +1,7 @@
-import React from "react";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { IMG_CDN_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
-import useRestaurant from "../utils/useRestaurant";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { addItem } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
 
@@ -11,7 +9,7 @@ const RestaurantMenu = () => {
     const params = useParams();
     const {resId} = params;
 
-    const restaurant = useRestaurant(resId);
+    const restaurant = useRestaurantMenu(resId);
 
     const dispatch = useDispatch();
 
@@ -21,9 +19,8 @@ const RestaurantMenu = () => {
 
     if (restaurant == null) return <Shimmer />;
 
-    const { name, cuisines, costForTwoMessage, cloudinaryImageId, areaName, avgRating, city } = restaurant?.cards[0]?.card?.card?.info;
-    const itemCards = restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card?.card?.itemCards;
-    console.log(itemCards);
+    const { name, cuisines, costForTwoMessage, cloudinaryImageId, areaName, avgRating, city } = restaurant?.cards[2]?.card?.card?.info;
+    const itemCards = restaurant?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card?.card?.itemCards;
 
     return (
         <div className="flex flex-col m-10 text-center">
@@ -46,7 +43,7 @@ const RestaurantMenu = () => {
                     {itemCards?.map((item) => (
                     <li key={item.card.info.id} className="m-10 text-center shadow-md w-80 ml-auto mr-auto">
 
-                        <img src={`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${item.card.info.imageId}`}
+                        <img src={IMG_CDN_URL + item.card.info.imageId}
                         className="h-40 m-auto" />
 
                         <p className="font-semibold">{item.card.info.name} -{" Rs."}
