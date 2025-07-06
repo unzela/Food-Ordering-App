@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { cardWithPromotedLabel } from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -10,6 +10,8 @@ const Body = () => {
     const [allRestaurants, setAllRestaurants] = useState([]);
     const [searchText, setSearchText] = useState("");
 
+    const RestaurantCardPromoted = cardWithPromotedLabel(RestaurantCard);
+
     useEffect(() => {
         getRestaurants();
     }, []);
@@ -17,8 +19,7 @@ const Body = () => {
     async function getRestaurants (){
         try{
             const data = await fetch("https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api");
-            const json = await data.json();
-            console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            const json = await data.json();;
             setAllRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants); //Optional Chaining
             setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         }
@@ -69,7 +70,8 @@ const Body = () => {
                     filteredRestaurants.map((restaurant) => {
                         return (
                             <Link to = {"/restaurant/"+restaurant.info.id} key={restaurant.info.id}>
-                                <RestaurantCard key={restaurant.info.id} restroData={restaurant}/>
+                                { restaurant.info.isOpen ? <RestaurantCardPromoted  restroData={restaurant} /> : 
+                                  <RestaurantCard key={restaurant.info.id} restroData={restaurant} />}
                             </Link>
                         )}
                 )}

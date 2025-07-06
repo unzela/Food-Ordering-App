@@ -1,4 +1,3 @@
-import restroList from "../utils/mockData";
 import { IMG_CDN_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
@@ -18,6 +17,19 @@ const RestaurantCard = (props) => {
             <h5>{sla.deliveryTime} mins</h5>
         </div>
     )
+}
+
+export const cardWithPromotedLabel = (RestaurantCard) => {
+    return (props) => {
+        return(
+            <div>
+                <label className="absolute bg-black text-white m-2 p-2 rounded-lg">
+                    Promoted
+                </label>
+                <RestaurantCard {...props}/>
+            </div>
+        )
+    }
 }
 
 export default RestaurantCard;

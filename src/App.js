@@ -1,5 +1,5 @@
 import ReactDOM  from "react-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
@@ -20,21 +20,20 @@ const About = lazy (() => import("./components/About"));
 
 const AppLayout =() => {
     const [user, setUser] = useState({
-        name: "Unzela",
-        email: "iunzela@gmail.com"
+            name: "Unzela",
+            email: "iunzela@gmail.com"
     })
-
-    //const { user } = useContext(UserContext);
-   return (
-    <div className="app">
-        <Provider store={store}>
-        <UserContext.Provider value={{user:user}}>
-            <Header />
-            <Outlet />
-            <Footer/>
-        </UserContext.Provider>
-        </Provider>
-    </div>
+    
+    return (
+        <div className="app">
+            <Provider store={store}>
+            <UserContext.Provider value={{user:user}}>
+                <Header />
+                <Outlet />
+                <Footer/>
+            </UserContext.Provider>
+            </Provider>
+        </div>
     );
 };
 
