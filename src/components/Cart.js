@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import FoodItem from "./FoodItem";
+import ItemList from "./ItemList";
 import { clearCart } from "../utils/cartSlice";
 
 const Cart = () => {
@@ -11,14 +11,18 @@ const Cart = () => {
     }
 
     return(
-        <div className="">
+        <div className="text-center m-4 p-4">
             <h1 className="font-bold text-3xl text-center p-5">Cart Items - {cartItems.length}</h1>
-            <div className="text-center">
-                <button onClick={() => handleClearCart()} className="p-2 m-5 bg-orange-100 rounded-lg ">Clear Cart</button>
-            </div>
-            <div className="flex">
-                {cartItems.map((item) => (<FoodItem key = {item.id} {...item}/>))}
-            </div>
+            <button
+                className=" p-2 m-2 bg-black text-white rounded-lg"
+                onClick={handleClearCart}
+            >
+                Clear Cart
+            </button>
+            {cartItems?.length === 0 && (
+            <h1> Cart is empty. Add Items to the cart!</h1>
+            )}
+            <ItemList items={cartItems} />
         </div>
     )
 }

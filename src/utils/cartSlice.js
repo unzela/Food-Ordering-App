@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
     name: "cart",
@@ -7,13 +7,17 @@ const cartSlice = createSlice({
     },
     reducers: {
         addItem : (state, action) => {
-            state.items.push(action.payload);
+            state.items.push(action.payload); //mutating the state
+            console.log(state);  //returns proxy object, hence use current
+            console.log(current(state));
         },
-        removeItem : (state, action) => {
+        removeItem : (state) => {
             state.items.pop();
         },
         clearCart: (state) => {
-            state.items = [];
+            //RTK - either Mutate the existing  state or return a new State
+            state.items.length = 0; // []
+            //return { items: [] }; // Or this new object will be replaced inside originalState = { items: [] }
         }
     }
 });

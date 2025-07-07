@@ -1,5 +1,5 @@
 import ReactDOM  from "react-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
@@ -12,7 +12,7 @@ import {lazy, Suspense} from "react";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
-import store from "./utils/store";
+import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 
 const Instamart = lazy (() => import("./components/Instamart"));
@@ -26,7 +26,7 @@ const AppLayout =() => {
     
     return (
         <div className="app">
-            <Provider store={store}>
+            <Provider store={appStore}>
             <UserContext.Provider value={{user:user}}>
                 <Header />
                 <Outlet />
