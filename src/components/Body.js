@@ -4,6 +4,7 @@ import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper"; 
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { SWIGGY_API } from "../mocks/swiggyApi";
 
 const Body = () => {
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -18,8 +19,7 @@ const Body = () => {
 
     async function getRestaurants (){
         try{
-            const data = await fetch("https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api");
-            const json = await data.json();;
+            const json = SWIGGY_API;
             setAllRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants); //Optional Chaining
             setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         }
