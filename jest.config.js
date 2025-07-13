@@ -1,9 +1,10 @@
-/*
+/**
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
 
-module.exports = {
+/** @type {import('jest').Config} */
+const config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -11,7 +12,7 @@ module.exports = {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "C:\\Users\\uinamdar\\AppData\\Local\\Temp\\jest",
+  // cacheDirectory: "C:\\Users\\iunze\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
@@ -88,9 +89,7 @@ module.exports = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  moduleNameMapper: {
-    "\\.(png|jpg|svg)$": "../mocks/dummyLogo.png"
-  },
+  // moduleNameMapper: {},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -195,3 +194,5 @@ module.exports = {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
+
+module.exports = config;

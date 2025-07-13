@@ -1,50 +1,68 @@
-import { render } from "@testing-library/react"
-import Header from "../Header"
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import store from "../../utils/store";
-import {StaticRouter} from "react-router-dom/server";
+import appStore from "../../utils/appStore";
+import Header from "../Header";
+import { BrowserRouter } from "react-router-dom";
+import "@testing-library/jest-dom";
 
-test("Logo should load on rendering header", () => {
-    const header = render(
-        <StaticRouter >
-            <Provider store={store}>
-               <Header />
-            </Provider>
-        </StaticRouter>
-    );
+it("Should render Header Component with a login button", () => {
+  render(
+    <BrowserRouter>
+      <Provider store={appStore}>
+        <Header />
+      </Provider>
+    </BrowserRouter>
+  );
 
-    //Check if logo is loaded
-    const logo = header.getAllByTestId("logo");
+  const loginButton = screen.getByRole("button", { name: "Login" });
 
-    expect(logo[0].src).toBe("https://images-platform.99static.com/O3ZHfJeHB741xpyYH95tWvMsdTI=/0x0:1279x1279/500x500/top/smart/99designs-contests-attachments/63/63966/attachment_63966256");
-})
+  //const loginButton = screen.getByText("Login");
 
-test("Online status should be green on rendering header", () => {
-    const header = render(
-        <StaticRouter >
-            <Provider store={store}>
-               <Header />
-            </Provider>
-        </StaticRouter>
-    );
+  expect(loginButton).toBeInTheDocument();
+});
 
-    //Check if status is online
-    const onlineStatus = header.getByTestId("online-status");
+it("Should render Header Component with a Cart items 0 ", () => {
+  render(
+    <BrowserRouter>
+      <Provider store={appStore}>
+        <Header />
+      </Provider>
+    </BrowserRouter>
+  );
 
-    expect(onlineStatus.innerHTML).toBe("✅");
-})
+  const cartItems = screen.getByText("Cart - (0 items)");
 
-test("Cart should have 0 items on rendering header", () => {
-    const header = render(
-        <StaticRouter >
-            <Provider store={store}>
-               <Header />
-            </Provider>
-        </StaticRouter>
-    );
+  expect(cartItems).toBeInTheDocument();
+});
 
-    //Check if status is online
-    const cart = header.getByTestId("cart");
+it("Should render Header Component with a Cart item ", () => {
+  render(
+    <BrowserRouter>
+      <Provider store={appStore}>
+        <Header />
+      </Provider>
+    </BrowserRouter>
+  );
 
-    expect(cart.innerHTML).toBe("Cart - 0");
-})
+  const cartItems = screen.getByText(/Cart/);
+
+  expect(cartItems).toBeInTheDocument();
+});
+
+it("Should change Login Button to Logout on click", () => {
+  render(
+    <BrowserRouter>
+      <Provider store={appStore}>
+        <Header />
+      </Provider>
+    </BrowserRouter>
+  );
+
+  const loginButton = screen.getByRole("button", { name: "Login" });
+
+  fireEvent.click(loginButton);
+
+  const logoutButton = screen.getByRole("button", { name: "Logout" });
+
+  expect(logoutButton).toBeInTheDocument();
+});
